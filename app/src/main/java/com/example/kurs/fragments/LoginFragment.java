@@ -10,6 +10,7 @@ import android.widget.Toast;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import com.example.kurs.R;
+import com.example.kurs.fragments.MovieListFragment;
 
 public class LoginFragment extends Fragment {
     private EditText editTextEmail;
@@ -28,12 +29,12 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Найдём поля и кнопку
+        // Находим поля и кнопку
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonLogin = view.findViewById(R.id.buttonLogin);
 
-        // Кнопка входа
+        // Обработчик кнопки входа
         buttonLogin.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
@@ -43,11 +44,19 @@ public class LoginFragment extends Fragment {
                 return;
             }
 
-            // Здесь можно добавить проверку email/пароля или переход к следующему экрану
-            Toast.makeText(getActivity(), "Вход выполнен (заглушка)", Toast.LENGTH_SHORT).show();
+            // Здесь можно добавить реальную проверку email/пароля
+
+            // Заглушка: вход успешен — переходим на экран со списком фильмов
+            Toast.makeText(getActivity(), "Вход выполнен", Toast.LENGTH_SHORT).show();
+
+            // Переход на MovieListFragment
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new MovieListFragment())
+                    .commit();
         });
 
-        // Переход на регистрацию
+        // Переход на регистрацию при клике на текст
         view.findViewById(R.id.textRegister).setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
