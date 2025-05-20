@@ -5,7 +5,7 @@
     card_view:cardCornerRadius="8dp"
     android:layout_margin="8dp"
     android:elevation="4dp"
-    card_view:cardBackgroundColor="@color/black_bg">  <!-- Вот здесь -->
+    card_view:cardBackgroundColor="@color/black_bg">
 
     <LinearLayout
         android:orientation="horizontal"

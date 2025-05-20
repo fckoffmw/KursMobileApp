@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
+
 import androidx.fragment.app.Fragment;
+
 import com.example.kurs.R;
-import com.example.kurs.fragments.MovieListFragment;
+import com.example.kurs.utils.UserPreferences;
 
 public class LoginFragment extends Fragment {
     private EditText editTextEmail;
@@ -34,26 +36,34 @@ public class LoginFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonLogin = view.findViewById(R.id.buttonLogin);
 
+        // ✅ Инициализация UserPreferences
+        UserPreferences userPreferences = new UserPreferences(requireContext());
+
         // Обработчик кнопки входа
         buttonLogin.setOnClickListener(v -> {
-            String email = editTextEmail.getText().toString().trim();
-            String password = editTextPassword.getText().toString().trim();
+            String inputEmail = editTextEmail.getText().toString().trim();
+            String inputPassword = editTextPassword.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(inputEmail) || TextUtils.isEmpty(inputPassword)) {
                 Toast.makeText(getActivity(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Здесь можно добавить реальную проверку email/пароля
+            // ✅ Проверка данных
+            String savedEmail = userPreferences.getEmail();
+            String savedPassword = userPreferences.getPassword();
 
-            // Заглушка: вход успешен — переходим на экран со списком фильмов
-            Toast.makeText(getActivity(), "Вход выполнен", Toast.LENGTH_SHORT).show();
+            if (inputEmail.equals(savedEmail) && inputPassword.equals(savedPassword)) {
+                Toast.makeText(getActivity(), "Вход выполнен", Toast.LENGTH_SHORT).show();
 
-            // Переход на MovieListFragment
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new MovieListFragment())
-                    .commit();
+                // Переход на главный экран
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new MovieListFragment())
+                        .commit();
+            } else {
+                Toast.makeText(getActivity(), "Неверный email или пароль", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Переход на регистрацию при клике на текст

@@ -9,10 +9,8 @@ public class Movie implements Serializable {
     private String poster_path;
     private String release_date;
 
-    // Добавляем жанры (можно List<String> или List<Genre> если у тебя есть отдельный класс)
     private List<String> genres;
 
-    // Добавляем длительность в минутах
     private int duration;
 
     public String getTitle() {

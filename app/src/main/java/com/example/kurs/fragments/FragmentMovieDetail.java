@@ -120,7 +120,14 @@ public class FragmentMovieDetail extends Fragment {
         });
 
         buttonSelectSession.setOnClickListener(v -> {
-            // TODO: реализовать переход на выбор сеанса (FragmentBooking)
+            BookingFragment bookingFragment = BookingFragment.newInstance(movieId, textTitle.getText().toString());
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, bookingFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
+
+
     }
 }

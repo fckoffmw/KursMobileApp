@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DialogButtonRed</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DialogButtonRed</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/DialogButtonRed</item>
+    </style>
+
+    <style name="DialogButtonRed" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/red_accent</item>
+    </style>
+
+</resources>

@@ -1,9 +1,11 @@
 package com.example.kurs.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import com.example.kurs.models.Movie;
 import com.example.kurs.models.MovieResponse;
 import com.example.kurs.network.ApiClient;
 import com.example.kurs.network.MovieApi;
+import com.example.kurs.utils.UserPreferences;
 
 import java.util.List;
 
@@ -45,6 +48,37 @@ public class MovieListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         loadMovies();
+
+        // 🔴 Обработка выхода
+        TextView textLogout = view.findViewById(R.id.textLogout);
+        UserPreferences userPreferences = new UserPreferences(requireContext());
+
+        textLogout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    new android.view.ContextThemeWrapper(requireContext(), R.style.AlertDialogCustom)
+            );
+
+            builder.setTitle("Выход")
+                    .setMessage("Хотите сохранить данные для повторного входа?")
+                    .setPositiveButton("Сохранить", (dialog, which) -> {
+                        navigateToLogin();
+                    })
+                    .setNegativeButton("Удалить данные", (dialog, which) -> {
+                        userPreferences.clearUser();
+                        navigateToLogin();
+                    })
+                    .setNeutralButton("Отмена", null)
+                    .show();
+        });
+
+
+    }
+
+    private void navigateToLogin() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .commit();
     }
 
     private void loadMovies() {
@@ -56,9 +90,8 @@ public class MovieListFragment extends Fragment {
                     List<Movie> movies = response.body().getResults();
 
                     movieAdapter = new MovieAdapter(movies, movie -> {
-                        Toast.makeText(getContext(), "Нажато: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Выбрано: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
 
-                        // Переход к MovieDetailFragment с передачей выбранного фильма
                         FragmentMovieDetail detailFragment = FragmentMovieDetail.newInstance(movie.getId());
 
                         requireActivity().getSupportFragmentManager()
