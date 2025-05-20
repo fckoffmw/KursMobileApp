@@ -2,9 +2,23 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+import java.util.Properties
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { stream ->
+        localProperties.load(stream)
+    }
+}
+
 android {
     namespace 'com.example.kurs'
     compileSdk 35
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId "com.example.kurs"
@@ -13,7 +27,12 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String", "API_KEY", "\"${localProperties.getProperty('API_KEY')}\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Вот тут добавляем buildConfigField с ключом из local.properties
+        buildConfigField "String", "API_KEY", "\"${localProperties.getProperty('API_KEY')}\""
     }
 
     buildTypes {
@@ -22,11 +41,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
 }
+
 
 dependencies {
 

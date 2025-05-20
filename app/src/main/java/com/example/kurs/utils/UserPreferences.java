@@ -1,4 +1,3 @@
-// com.example.kurs.utils.UserPreferences.java
 package com.example.kurs.utils;
 
 import android.content.Context;

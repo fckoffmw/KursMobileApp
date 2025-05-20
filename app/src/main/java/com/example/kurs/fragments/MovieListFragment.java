@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.kurs.BuildConfig;
 import com.example.kurs.R;
 import com.example.kurs.adapters.MovieAdapter;
 import com.example.kurs.models.Movie;
@@ -30,7 +31,7 @@ public class MovieListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
-    private final String API_KEY = "6abc24ab7cb2c77d1ca39bb8b127f655";
+    private final String API_KEY = BuildConfig.API_KEY;
 
     public MovieListFragment() {}
 
@@ -70,8 +71,6 @@ public class MovieListFragment extends Fragment {
                     .setNeutralButton("Отмена", null)
                     .show();
         });
-
-
     }
 
     private void navigateToLogin() {
