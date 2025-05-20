@@ -20,10 +20,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> movieList;
     private OnItemClickListener listener;
 
+    // Интерфейс для обработки кликов по элементам списка
     public interface OnItemClickListener {
         void onItemClick(Movie movie);
     }
 
+    // Конструктор с передачей списка фильмов и слушателя кликов
     public MovieAdapter(List<Movie> movieList, OnItemClickListener listener) {
         this.movieList = movieList;
         this.listener = listener;
@@ -61,7 +63,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             poster = itemView.findViewById(R.id.imagePoster);
         }
 
-        public void bind(Movie movie, OnItemClickListener listener) {
+        // Метод bind связывает данные фильма с View и добавляет обработчик клика
+        public void bind(final Movie movie, final OnItemClickListener listener) {
             title.setText(movie.getTitle());
             overview.setText(movie.getOverview());
             date.setText(movie.getReleaseDate());
@@ -69,7 +72,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             String imageUrl = "https://image.tmdb.org/t/p/w500" + movie.getPosterPath();
             Glide.with(itemView.getContext()).load(imageUrl).into(poster);
 
-            itemView.setOnClickListener(v -> listener.onItemClick(movie));
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(movie);
+                }
+            });
         }
     }
 }

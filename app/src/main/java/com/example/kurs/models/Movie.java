@@ -1,10 +1,19 @@
 package com.example.kurs.models;
 
-public class Movie {
+import java.io.Serializable;
+import java.util.List;
+
+public class Movie implements Serializable {
     private String title;
     private String overview;
     private String poster_path;
     private String release_date;
+
+    // Добавляем жанры (можно List<String> или List<Genre> если у тебя есть отдельный класс)
+    private List<String> genres;
+
+    // Добавляем длительность в минутах
+    private int duration;
 
     public String getTitle() {
         return title;
@@ -21,4 +30,18 @@ public class Movie {
     public String getReleaseDate() {
         return release_date;
     }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
 }

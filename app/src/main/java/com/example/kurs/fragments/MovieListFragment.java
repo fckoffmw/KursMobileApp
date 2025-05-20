@@ -55,18 +55,17 @@ public class MovieListFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> movies = response.body().getResults();
 
-                    // Важно: указываем слушатель клика
                     movieAdapter = new MovieAdapter(movies, movie -> {
                         Toast.makeText(getContext(), "Нажато: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
 
-                        // Здесь можно сделать переход к MovieDetailFragment
-                        // Пример:
-                        // Fragment fragment = MovieDetailFragment.newInstance(movie);
-                        // requireActivity().getSupportFragmentManager()
-                        //         .beginTransaction()
-                        //         .replace(R.id.fragment_container, fragment)
-                        //         .addToBackStack(null)
-                        //         .commit();
+                        // Переход к MovieDetailFragment с передачей выбранного фильма
+                        FragmentMovieDetail detailFragment = FragmentMovieDetail.newInstance(movie.getId());
+
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, detailFragment)
+                                .addToBackStack(null)
+                                .commit();
                     });
 
                     recyclerView.setAdapter(movieAdapter);
