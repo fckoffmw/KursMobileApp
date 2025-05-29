@@ -4,4 +4,5 @@
     <color name="white_text">#FFFFFF</color>
     <color name="red_accent">#E50914</color>
     <color name="gray_bg">#1F1F1F</color>
+    <color name="gray_light">#A9A9A9</color>
 </resources>

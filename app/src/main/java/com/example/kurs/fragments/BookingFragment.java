@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -76,12 +75,21 @@ public class BookingFragment extends Fragment {
         spinnerTime.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, times));
         spinnerHall.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, halls));
 
+        buttonBook.setText("Купить билет"); // изменяем текст кнопки
+
         buttonBook.setOnClickListener(v -> {
             String selectedTime = spinnerTime.getSelectedItem().toString();
             String selectedHall = spinnerHall.getSelectedItem().toString();
-            Toast.makeText(requireContext(),
-                    "Сеанс забронирован: " + selectedTime + " — " + selectedHall,
-                    Toast.LENGTH_LONG).show();
+
+            PurchaseFragment purchaseFragment = PurchaseFragment.newInstance(
+                    movieId, movieTitle, selectedTime, selectedHall);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, purchaseFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
+
     }
 }

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray_light"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/buttonBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back"
+        android:contentDescription="Назад"
+        android:layout_marginBottom="16dp"
+        app:tint="@color/red_accent" />
+
+    <TextView
+        android:id="@+id/textMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Фильм: "
+        android:textColor="@color/black_bg"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сеанс:"
+        android:textColor="@color/black_bg"
+        android:textSize="18sp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите количество билетов:"
+        android:textColor="@color/black_bg"
+        android:layout_marginBottom="8dp" />
+
+    <NumberPicker
+        android:id="@+id/ticketPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/buttonBuyTicket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Купить"
+        android:textColor="@color/white_text"
+        android:backgroundTint="@color/red_accent" />
+</LinearLayout>
