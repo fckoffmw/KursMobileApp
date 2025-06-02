@@ -56,7 +56,6 @@ public class PurchaseFragment extends Fragment {
         NumberPicker ticketPicker = view.findViewById(R.id.ticketPicker);
         Button buttonBuy = view.findViewById(R.id.buttonBuyTicket);
 
-        // Аргументы
         Bundle args = getArguments();
         if (args != null) {
             String title = args.getString(ARG_MOVIE_TITLE);

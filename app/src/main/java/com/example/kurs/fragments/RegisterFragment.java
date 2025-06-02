@@ -3,6 +3,7 @@ package com.example.kurs.fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,18 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.kurs.R;
-import com.example.kurs.utils.UserPreferences;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterFragment extends Fragment {
     private EditText editTextName;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private ImageButton buttonBack;
+
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public RegisterFragment() {}
 
@@ -39,10 +45,7 @@ public class RegisterFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonBack = view.findViewById(R.id.buttonBack);
 
-        // Инициализируем UserPreferences
-        UserPreferences userPreferences = new UserPreferences(requireContext());
-
-        // Обработчик кнопки "Назад"
+        // Кнопка "Назад"
         buttonBack.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -51,7 +54,7 @@ public class RegisterFragment extends Fragment {
                     .commit();
         });
 
-        // Обработка нажатия кнопки "Зарегистрироваться"
+        // Кнопка "Зарегистрироваться"
         view.findViewById(R.id.buttonRegister).setOnClickListener(v -> {
             String name = editTextName.getText().toString().trim();
             String email = editTextEmail.getText().toString().trim();
@@ -67,16 +70,27 @@ public class RegisterFragment extends Fragment {
                 return;
             }
 
-            // ✅ Сохраняем данные пользователя
-            userPreferences.saveUser(email, password);
+            // Создание пользователя как документа Firestore
+            Map<String, Object> user = new HashMap<>();
+            user.put("username", name);
+            user.put("email", email);
+            user.put("password", password); // ⚠️ Лучше не хранить в открытом виде!
 
-            Toast.makeText(getActivity(), "Регистрация успешна", Toast.LENGTH_SHORT).show();
+            db.collection("base1")
+                    .add(user)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(getActivity(), "Регистрация успешна", Toast.LENGTH_SHORT).show();
 
-            // Переход на экран входа
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new LoginFragment())
-                    .commit();
+                        // Переход к экрану входа
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, new LoginFragment())
+                                .commit();
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("FirestoreError", "Ошибка при регистрации", e);
+                        Toast.makeText(getActivity(), "Ошибка при регистрации", Toast.LENGTH_SHORT).show();
+                    });
         });
     }
 }

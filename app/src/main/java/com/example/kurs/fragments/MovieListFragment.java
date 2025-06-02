@@ -19,7 +19,7 @@ import com.example.kurs.models.Movie;
 import com.example.kurs.models.MovieResponse;
 import com.example.kurs.network.ApiClient;
 import com.example.kurs.network.MovieApi;
-import com.example.kurs.utils.UserPreferences;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -50,25 +50,32 @@ public class MovieListFragment extends Fragment {
 
         loadMovies();
 
-        // 🔴 Обработка выхода
-        TextView textLogout = view.findViewById(R.id.textLogout);
-        UserPreferences userPreferences = new UserPreferences(requireContext());
+        String userEmail = getArguments() != null ? getArguments().getString("email") : null;
 
+        if (userEmail != null) {
+            FirebaseFirestore.getInstance().collection("base1")
+                    .whereEqualTo("email", userEmail)
+                    .get()
+                    .addOnSuccessListener(snapshot -> {
+                        if (!snapshot.isEmpty()) {
+                            String username = snapshot.getDocuments().get(0).getString("username");
+                            Toast.makeText(getContext(), "Здравствуйте, " + username, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+        TextView textLogout = view.findViewById(R.id.textLogout);
         textLogout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(
                     new android.view.ContextThemeWrapper(requireContext(), R.style.AlertDialogCustom)
             );
 
             builder.setTitle("Выход")
-                    .setMessage("Хотите сохранить данные для повторного входа?")
-                    .setPositiveButton("Сохранить", (dialog, which) -> {
+                    .setMessage("Вы действительно хотите выйти?")
+                    .setPositiveButton("Выйти", (dialog, which) -> {
                         navigateToLogin();
                     })
-                    .setNegativeButton("Удалить данные", (dialog, which) -> {
-                        userPreferences.clearUser();
-                        navigateToLogin();
-                    })
-                    .setNeutralButton("Отмена", null)
+                    .setNegativeButton("Отмена", null)
                     .show();
         });
     }

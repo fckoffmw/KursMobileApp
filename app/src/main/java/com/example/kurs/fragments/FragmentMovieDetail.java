@@ -40,7 +40,6 @@ public class FragmentMovieDetail extends Fragment {
     }
 
     public FragmentMovieDetail() {
-        // пустой конструктор
     }
 
     @Override

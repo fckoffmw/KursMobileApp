@@ -1,5 +1,7 @@
 package com.example.kurs.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,15 +11,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.kurs.R;
-import com.example.kurs.utils.UserPreferences;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class LoginFragment extends Fragment {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonLogin;
+
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public LoginFragment() {}
 
@@ -28,18 +35,13 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Находим поля и кнопку
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonLogin = view.findViewById(R.id.buttonLogin);
 
-        // ✅ Инициализация UserPreferences
-        UserPreferences userPreferences = new UserPreferences(requireContext());
-
-        // Обработчик кнопки входа
         buttonLogin.setOnClickListener(v -> {
             String inputEmail = editTextEmail.getText().toString().trim();
             String inputPassword = editTextPassword.getText().toString().trim();
@@ -49,24 +51,33 @@ public class LoginFragment extends Fragment {
                 return;
             }
 
-            // ✅ Проверка данных
-            String savedEmail = userPreferences.getEmail();
-            String savedPassword = userPreferences.getPassword();
+            Query query = db.collection("base1")
+                    .whereEqualTo("email", inputEmail)
+                    .whereEqualTo("password", inputPassword);
 
-            if (inputEmail.equals(savedEmail) && inputPassword.equals(savedPassword)) {
-                Toast.makeText(getActivity(), "Вход выполнен", Toast.LENGTH_SHORT).show();
+            query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+                    String username = document.getString("username");
 
-                // Переход на главный экран
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new MovieListFragment())
-                        .commit();
-            } else {
-                Toast.makeText(getActivity(), "Неверный email или пароль", Toast.LENGTH_SHORT).show();
-            }
+                    SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+                    prefs.edit().putString("username", username).apply();
+
+                    Toast.makeText(getActivity(), "Здравствуйте, " + username, Toast.LENGTH_SHORT).show();
+
+                    // Переход на главный экран
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, new MovieListFragment())
+                            .commit();
+                } else {
+                    Toast.makeText(getActivity(), "Неверный email или пароль", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getActivity(), "Ошибка при подключении к базе данных", Toast.LENGTH_SHORT).show();
+            });
         });
 
-        // Переход на регистрацию при клике на текст
         view.findViewById(R.id.textRegister).setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()

@@ -66,7 +66,6 @@ public class BookingFragment extends Fragment {
         Spinner spinnerHall = view.findViewById(R.id.spinnerHall);
         Button buttonBook = view.findViewById(R.id.buttonBook);
 
-        // Устанавливаем настоящее название фильма
         textMovieTitle.setText(movieTitle);
 
         String[] times = {"12:00", "15:00", "18:00", "21:00"};
@@ -75,7 +74,7 @@ public class BookingFragment extends Fragment {
         spinnerTime.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, times));
         spinnerHall.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, halls));
 
-        buttonBook.setText("Купить билет"); // изменяем текст кнопки
+        buttonBook.setText("Купить билет");
 
         buttonBook.setOnClickListener(v -> {
             String selectedTime = spinnerTime.getSelectedItem().toString();

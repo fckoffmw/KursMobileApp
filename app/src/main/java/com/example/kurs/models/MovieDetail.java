@@ -13,7 +13,7 @@ public class MovieDetail {
     @SerializedName("release_date")
     private String releaseDate;
 
-    private int runtime; // длительность в минутах
+    private int runtime;
 
     private List<Genre> genres;
 
