@@ -6,7 +6,6 @@
     android:background="@color/black_bg"
     android:padding="24dp">
 
-    <!-- Поле ввода Email -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
@@ -24,7 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="150dp"/>
 
-    <!-- Поле ввода Пароль -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
@@ -42,7 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Кнопка Войти -->
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="0dp"
@@ -58,7 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Текст "Нет аккаунта? Зарегистрироваться" -->
     <TextView
         android:id="@+id/textRegister"
         android:layout_width="wrap_content"

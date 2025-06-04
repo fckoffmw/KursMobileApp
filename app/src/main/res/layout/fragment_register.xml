@@ -8,8 +8,8 @@
 
     <ImageButton
         android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:src="@drawable/arrow_back"
         android:contentDescription="Назад"
@@ -19,7 +19,6 @@
         android:layout_marginStart="16dp"
         app:tint="@color/red_accent" />
 
-    <!-- Поле ввода Имя -->
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="0dp"
@@ -36,7 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="150dp"/>
 
-    <!-- Поле ввода Email -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
@@ -54,7 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Поле ввода Пароль -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
@@ -72,7 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Кнопка Зарегистрироваться -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="0dp"

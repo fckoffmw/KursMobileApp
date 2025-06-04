@@ -65,7 +65,6 @@ public class LoginFragment extends Fragment {
 
                     Toast.makeText(getActivity(), "Здравствуйте, " + username, Toast.LENGTH_SHORT).show();
 
-                    // Переход на главный экран
                     requireActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container, new MovieListFragment())

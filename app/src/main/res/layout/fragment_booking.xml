@@ -1,70 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@color/black_bg"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <ImageButton
-        android:id="@+id/buttonBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/arrow_back"
-        android:contentDescription="Назад"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:tint="@color/red_accent" />
-
-    <TextView
-        android:id="@+id/textMovieTitle"
-        android:text="Фильм"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/white_text"
-        android:layout_marginBottom="24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:text="Выберите время"
-        android:textColor="@color/white_text"
-        android:layout_marginBottom="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/spinnerTime"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:popupBackground="@android:color/white"
-        android:layout_marginBottom="24dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:text="Выберите зал"
-        android:textColor="@color/white_text"
-        android:layout_marginBottom="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/buttonBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:src="@drawable/arrow_back"
+            android:contentDescription="Назад"
+            app:tint="@color/red_accent"
+            android:layout_marginBottom="16dp" />
 
-    <Spinner
-        android:id="@+id/spinnerHall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:popupBackground="@android:color/white"
-        android:layout_marginBottom="32dp"/>
+        <TextView
+            android:id="@+id/textMovieTitle"
+            android:text="Фильм"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/white_text"
+            android:layout_marginBottom="24dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
-    <Button
-        android:id="@+id/buttonBook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Забронировать"
-        android:backgroundTint="@color/red_accent"
-        android:textColor="@color/white_text"
-        android:textStyle="bold"/>
-</LinearLayout>
+        <TextView
+            android:text="Выберите время"
+            android:textColor="@color/white_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerTime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:text="Выберите зал"
+            android:textColor="@color/white_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerHall"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:text="Выберите места"
+            android:textColor="@color/white_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <GridLayout
+            android:id="@+id/seatGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="6"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:alignmentMode="alignMargins"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/textSummary"
+            android:text="Итого: 0 ₽"
+            android:textColor="@color/white_text"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Купить билет"
+            android:backgroundTint="@color/red_accent"
+            android:textColor="@color/white_text"
+            android:textStyle="bold"
+            android:minHeight="48dp"/>
+    </LinearLayout>
+</ScrollView>
