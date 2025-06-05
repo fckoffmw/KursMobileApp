@@ -44,7 +44,7 @@ The project follows a modular package structure:
 
 The app was tested using the **black-box testing method** by giving the build to several users. The tests validated:
 - User registration and login flows
-- Movie list loading with different internet speeds
+- Movie list loading
 - Navigation stability between fragments
 - Booking and purchase scenarios
 
