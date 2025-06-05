@@ -20,12 +20,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> movieList;
     private OnItemClickListener listener;
 
-    // Интерфейс для обработки кликов по элементам списка
     public interface OnItemClickListener {
         void onItemClick(Movie movie);
     }
 
-    // Конструктор с передачей списка фильмов и слушателя кликов
     public MovieAdapter(List<Movie> movieList, OnItemClickListener listener) {
         this.movieList = movieList;
         this.listener = listener;
@@ -63,7 +61,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             poster = itemView.findViewById(R.id.imagePoster);
         }
 
-        // Метод bind связывает данные фильма с View и добавляет обработчик клика
         public void bind(final Movie movie, final OnItemClickListener listener) {
             title.setText(movie.getTitle());
             overview.setText(movie.getOverview());

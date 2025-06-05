@@ -104,7 +104,11 @@ public class PurchaseFragment extends Fragment {
             }
 
             Toast.makeText(getContext(), "Оплата прошла успешно!", Toast.LENGTH_LONG).show();
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new MovieListFragment())
+                    .commit();
+
         });
     }
 }
